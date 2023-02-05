@@ -4,6 +4,7 @@
  */
 package com.isaac.BookStore.services;
 
+import com.isaac.BookStore.domain.Categoria;
 import com.isaac.BookStore.domain.Livro;
 import com.isaac.BookStore.repository.LivroRepository;
 import com.isaac.BookStore.services.excptions.ObjectNotFoundException;
@@ -42,6 +43,18 @@ public class LivroService {
         newObj.setTitulo(obj.getTitulo());
         newObj.setNomeAutor(obj.getNomeAutor());
         newObj.setTexto(obj.getTexto());
+    }
+
+    public Livro create(Integer id_cat, Livro obj) {
+        obj.setId(null);
+        Categoria cat = categoriaService.findById(id_cat);
+        obj.setCategoria(cat);
+        return repository.save(obj);
+    }
+
+    public void delete(Integer id) {
+         Livro obj = findById(id);
+         repository.delete(obj);
     }
     
     
